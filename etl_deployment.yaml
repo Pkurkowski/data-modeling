@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etl-transform-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etl-transform
+  template:
+    metadata:
+      labels:
+        app: etl-transform
+    spec:
+      containers:
+      - name: etl-transform
+        image: etl-transform:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+        command: ["python", "/app/etl_transform.py"]
